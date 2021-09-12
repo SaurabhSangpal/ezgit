@@ -7,6 +7,8 @@ class MainWindow;
 }
 QT_END_NAMESPACE
 
+class QWidget;
+
 class MainWindow : public QMainWindow {
     public:
 	explicit MainWindow(QWidget* parent = nullptr);
@@ -14,4 +16,5 @@ class MainWindow : public QMainWindow {
 
     private:
 	Ui::MainWindow* ui;
+	QWidget*	mainWidget;
 };

@@ -11,11 +11,13 @@ set(CMAKE_AUTOUIC ON)
 find_package(Qt5 COMPONENTS Widgets CONFIG REQUIRED)
 
 set(SRC src/ui/MainWindow.ui
+		src/ui/RepoViewerWidget.ui
 		src/main.cc
 		src/git_wrapper/repository.cc
-		src/ui/MainWindow.cc)
+		src/ui/MainWindow.cc
+		src/ui/RepoViewerWidget.cc)
 
-add_executable(ezgit ${SRC})
+add_executable(ezgit WIN32 ${SRC} "src/ui/RepoViewerWidget.h")
 target_include_directories(ezgit PRIVATE ${PROJECT_SOURCE_DIR}/vendor/libgit2/include)
 target_link_libraries(ezgit PRIVATE ${PROJECT_SOURCE_DIR}/vendor/libgit2/bin/git2.lib
 									Qt5::Widgets)
