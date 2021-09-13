@@ -17,4 +17,6 @@ class MainWindow : public QMainWindow {
     private:
 	Ui::MainWindow* ui;
 	QWidget*	mainWidget;
+
+	void OpenRepository() noexcept;
 };

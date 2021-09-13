@@ -1,7 +1,10 @@
 #include "MainWindow.h"
 
+#include <qaction.h>
+#include <qfiledialog.h>
 #include <qlayout.h>
 
+#include "../git_wrapper/Repository.h"
 #include "./ui_MainWindow.h"
 #include "RepoViewerWidget.h"
 
@@ -9,8 +12,23 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
 	ui->setupUi(this);
 	setWindowTitle("Ez Git");
 
+	ui->actionOpen_Repository->setShortcuts(QKeySequence::Open);
+	ui->actionExit->setShortcuts(QKeySequence::Quit);
+
+	connect(ui->actionOpen_Repository, &QAction::triggered, this, &MainWindow::OpenRepository);
+	connect(ui->actionExit, &QAction::triggered, this, []() { std::exit(0); });
+
 	// auto* repoViewerWidget = new RepoViewerWidget(this);
 	// mainWidget	       = repoViewerWidget;
 
 	show();
+}
+
+void MainWindow::OpenRepository() noexcept {
+	QString dir = QFileDialog::getExistingDirectory(
+	    this, tr("Select Git Repository"), "/home",
+	    QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+
+	git::Repository repo;
+	repo.Open(dir.toStdString().c_str());  // Very weird
 }
