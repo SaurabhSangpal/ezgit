@@ -3,6 +3,7 @@
 #include <qaction.h>
 #include <qfiledialog.h>
 #include <qlayout.h>
+#include <qmessagebox.h>
 
 #include "../git_wrapper/Repository.h"
 #include "./ui_MainWindow.h"
@@ -12,9 +13,12 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
 	ui->setupUi(this);
 	setWindowTitle("Ez Git");
 
+	ui->actionCreate_Repository->setShortcuts(QKeySequence::New);
 	ui->actionOpen_Repository->setShortcuts(QKeySequence::Open);
 	ui->actionExit->setShortcuts(QKeySequence::Quit);
 
+	connect(ui->actionCreate_Repository, &QAction::triggered, this,
+		&MainWindow::InitRepository);
 	connect(ui->actionOpen_Repository, &QAction::triggered, this, &MainWindow::OpenRepository);
 	connect(ui->actionExit, &QAction::triggered, this, []() { std::exit(0); });
 
@@ -31,4 +35,23 @@ void MainWindow::OpenRepository() noexcept {
 
 	git::Repository repo;
 	repo.Open(dir.toStdString().c_str());  // Very weird
+}
+
+void MainWindow::InitRepository() noexcept {
+	QString dir = QFileDialog::getExistingDirectory(
+	    this, tr("Select Git Repository"), "/home",
+	    QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+
+	auto path = dir.toStdString();
+	if (path.empty()) return;
+
+	git::Repository repo;
+	QMessageBox	msgBox;
+	if (repo.Create(path.c_str())) {
+		msgBox.information(this, "Success", "Successfully created repository.",
+				   QMessageBox::StandardButton::Ok);
+	} else {
+		msgBox.warning(this, "Failure", "Failed to create repository.",
+			       QMessageBox::StandardButton::Ok);
+	}
 }

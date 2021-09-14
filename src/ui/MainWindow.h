@@ -19,4 +19,5 @@ class MainWindow : public QMainWindow {
 	QWidget*	mainWidget;
 
 	void OpenRepository() noexcept;
+	void InitRepository() noexcept;
 };
