@@ -3,6 +3,7 @@
 #include <QApplication.h>
 
 struct git_repository;
+struct git_status_list;
 
 namespace git {
 class Repository {
@@ -16,6 +17,8 @@ class Repository {
 	bool Open(const char* path) noexcept;
 	// Returns true if repository is cloned successfully.
 	bool Clone(const char* url, const char* directory) noexcept;
+
+	git_status_list** Status() noexcept;
 
 	bool IsGitRepoNonNull() const noexcept { return repo != nullptr; }
 
