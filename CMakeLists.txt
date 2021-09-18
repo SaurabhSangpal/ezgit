@@ -15,6 +15,7 @@ set(SRC src/ui/MainWindow.ui
 		src/ui/Commit.ui
 		src/main.cc
 		src/git_wrapper/Repository.cc
+		src/git_wrapper/Remote.cc
 		src/git_wrapper/Commit.cc
 		src/ui/MainWindow.cc
 		src/ui/RepoViewerWidget.cc
