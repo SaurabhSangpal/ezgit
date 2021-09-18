@@ -7,8 +7,6 @@ class RepoViewerWidget;
 }
 QT_END_NAMESPACE
 
-class QMainWindow;
-
 class RepoViewerWidget : public QWidget {
     public:
 	explicit RepoViewerWidget(QWidget* parent = nullptr);
