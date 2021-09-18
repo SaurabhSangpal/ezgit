@@ -23,4 +23,6 @@ git_status_list** git::Repository::Status() noexcept {
 	if (error == 0) {
 		return list;
 	}
+
+	return nullptr;
 }

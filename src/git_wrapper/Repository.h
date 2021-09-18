@@ -2,6 +2,10 @@
 
 #include <QApplication.h>
 
+#include <vector>
+
+#include "remote.h"
+
 struct git_repository;
 struct git_status_list;
 
@@ -20,9 +24,11 @@ class Repository {
 
 	git_status_list** Status() noexcept;
 
-	bool IsGitRepoNonNull() const noexcept { return repo != nullptr; }
+	bool		IsGitRepoNonNull() const noexcept { return repo != nullptr; }
+	git_repository* GetRepository() const noexcept { return repo; }
 
     private:
-	git_repository* repo;
+	git_repository*		 repo;
+	std::vector<git::Remote> remotes;
 };
 }  // namespace git
