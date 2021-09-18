@@ -22,7 +22,8 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
 	connect(ui->actionOpen_Repository, &QAction::triggered, this, &MainWindow::OpenRepository);
 	connect(ui->actionExit, &QAction::triggered, this, []() { std::exit(0); });
 
-	// auto* repoViewerWidget = new RepoViewerWidget(this);
+	auto* repoViewerWidget = new RepoViewerWidget(this);
+	setCentralWidget(repoViewerWidget);
 	// mainWidget	       = repoViewerWidget;
 
 	show();
@@ -33,8 +34,16 @@ void MainWindow::OpenRepository() noexcept {
 	    this, tr("Select Git Repository"), "/home",
 	    QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 
+	auto path = dir.toStdString();
+	if (path.empty()) return;
+
 	git::Repository repo;
-	repo.Open(dir.toStdString().c_str());  // Very weird
+	if (repo.Open(path.c_str())) {
+	} else {
+		QMessageBox msgBox;
+		msgBox.warning(this, "Failure", "Failed to open repository.",
+			       QMessageBox::StandardButton::Ok);
+	}
 }
 
 void MainWindow::InitRepository() noexcept {
@@ -55,3 +64,5 @@ void MainWindow::InitRepository() noexcept {
 			       QMessageBox::StandardButton::Ok);
 	}
 }
+
+void MainWindow::CloneRepository(const std::string& url) noexcept {}
