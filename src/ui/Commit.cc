@@ -11,11 +11,3 @@ void Commit::Setup(const git::Commit& commit) noexcept {
 	ui->hash->setText(commit.GetHash().c_str());
 	ui->time->setText(commit.GetDate().c_str());
 }
-
-void git::Commit::Setup(const std::string& m, const std::string& a, const std::string& h,
-			const std::string& d) noexcept {
-	message = m;
-	author	= a;
-	hash	= h;
-	date	= d;
-}
