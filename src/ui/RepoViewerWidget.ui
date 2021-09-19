@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(50, 50, 50);
+color: rgb(255, 255, 255);</string>
+  </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
     <widget class="QFrame" name="left">
@@ -230,8 +234,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>552</width>
-                 <height>394</height>
+                 <width>536</width>
+                 <height>378</height>
                 </rect>
                </property>
               </widget>
