@@ -13,12 +13,12 @@ RepoViewerWidget::RepoViewerWidget(QWidget* parent)
 	commit.Setup("Add generic comment", "Saurabh Sangpal", "asch23kcks", "18 Sep 2021 18:30");
 
 	auto* layout = new QVBoxLayout;
-	ui->commitsScrollArea->setLayout(layout);
+	ui->commitsScrollAreaContent->setLayout(layout);
 
 	for (int i = 0; i < 10; i++) {
-		auto* uiCommit = new Commit(ui->commitsScrollArea);
+		auto* uiCommit = new Commit(ui->commitsScrollAreaContent);
 		uiCommit->Setup(commit);
 		layout->addWidget(uiCommit);
 	}
-	ui->scrollArea->setWidget(ui->commitsScrollArea);
+	ui->commitsScrollArea->setWidget(ui->commitsScrollAreaContent);
 }

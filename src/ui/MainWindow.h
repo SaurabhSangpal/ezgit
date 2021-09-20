@@ -20,5 +20,5 @@ class MainWindow : public QMainWindow {
 
 	void OpenRepository() noexcept;
 	void InitRepository() noexcept;
-	void CloneRepository(const std::string& url) noexcept;
+	void CloneRepository() noexcept;
 };

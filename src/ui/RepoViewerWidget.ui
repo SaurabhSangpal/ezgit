@@ -81,7 +81,7 @@ color: rgb(255, 255, 255);</string>
           <property name="widgetResizable">
            <bool>true</bool>
           </property>
-          <widget class="QWidget" name="scrollAreaWidgetContents">
+          <widget class="QWidget" name="scrollAreaBranchesContent">
            <property name="geometry">
             <rect>
              <x>0</x>
@@ -105,7 +105,7 @@ color: rgb(255, 255, 255);</string>
           <property name="widgetResizable">
            <bool>true</bool>
           </property>
-          <widget class="QWidget" name="scrollAreaWidgetContents_3">
+          <widget class="QWidget" name="scrollAreaRemotesContent">
            <property name="geometry">
             <rect>
              <x>0</x>
@@ -129,7 +129,7 @@ color: rgb(255, 255, 255);</string>
           <property name="widgetResizable">
            <bool>true</bool>
           </property>
-          <widget class="QWidget" name="scrollAreaWidgetContents_4">
+          <widget class="QWidget" name="scrollAreaTagsContent">
            <property name="geometry">
             <rect>
              <x>0</x>
@@ -153,7 +153,7 @@ color: rgb(255, 255, 255);</string>
           <property name="widgetResizable">
            <bool>true</bool>
           </property>
-          <widget class="QWidget" name="scrollAreaWidgetContents_5">
+          <widget class="QWidget" name="scrollAreaStashesContent">
            <property name="geometry">
             <rect>
              <x>0</x>
@@ -177,7 +177,7 @@ color: rgb(255, 255, 255);</string>
           <property name="widgetResizable">
            <bool>true</bool>
           </property>
-          <widget class="QWidget" name="scrollAreaWidgetContents_6">
+          <widget class="QWidget" name="scrollAreaSubmodulesContent">
            <property name="geometry">
             <rect>
              <x>0</x>
@@ -225,11 +225,11 @@ color: rgb(255, 255, 255);</string>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_6">
             <item>
-             <widget class="QScrollArea" name="scrollArea">
+             <widget class="QScrollArea" name="commitsScrollArea">
               <property name="widgetResizable">
                <bool>true</bool>
               </property>
-              <widget class="QWidget" name="commitsScrollArea">
+              <widget class="QWidget" name="commitsScrollAreaContent">
                <property name="geometry">
                 <rect>
                  <x>0</x>

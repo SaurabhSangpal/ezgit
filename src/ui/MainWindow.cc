@@ -7,6 +7,7 @@
 
 #include "../git_wrapper/Repository.h"
 #include "./ui_MainWindow.h"
+#include "CloneDialog.h"
 #include "RepoViewerWidget.h"
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
@@ -20,6 +21,8 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
 	connect(ui->actionCreate_Repository, &QAction::triggered, this,
 		&MainWindow::InitRepository);
 	connect(ui->actionOpen_Repository, &QAction::triggered, this, &MainWindow::OpenRepository);
+	connect(ui->actionClone_Repository, &QAction::triggered, this,
+		&MainWindow::CloneRepository);
 	connect(ui->actionExit, &QAction::triggered, this, []() { std::exit(0); });
 
 	auto* repoViewerWidget = new RepoViewerWidget(this);
@@ -65,4 +68,7 @@ void MainWindow::InitRepository() noexcept {
 	}
 }
 
-void MainWindow::CloneRepository(const std::string& url) noexcept {}
+void MainWindow::CloneRepository() noexcept {
+	auto* dialog = new CloneDialog(this);
+	dialog->exec();
+}
