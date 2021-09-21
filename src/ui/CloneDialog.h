@@ -11,8 +11,9 @@ QT_END_NAMESPACE
 class CloneDialog : public QDialog {
     public:
 	explicit CloneDialog(QWidget* parent = nullptr);
-	~CloneDialog() = default;
 
     private:
+	void BrowseForDestinationFolder() noexcept;
+
 	Ui::CloneDialog* ui;
 };
