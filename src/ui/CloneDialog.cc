@@ -13,7 +13,7 @@ CloneDialog::CloneDialog(QWidget* parent) : QDialog(parent), ui(new Ui::CloneDia
 
 void CloneDialog::BrowseForDestinationFolder() noexcept {
 	QString dir = QFileDialog::getExistingDirectory(
-	    this, tr("Select Git Repository"), "/home",
+	    this, tr("Select Destination"), "/home",
 	    QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 
 	if (dir.toStdString().empty()) {
