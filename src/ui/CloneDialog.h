@@ -14,6 +14,7 @@ class CloneDialog : public QDialog {
 
     private:
 	void BrowseForDestinationFolder() noexcept;
+	void CloneRepo() noexcept;
 
 	Ui::CloneDialog* ui;
 };
