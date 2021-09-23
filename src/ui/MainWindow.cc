@@ -43,9 +43,8 @@ void MainWindow::OpenRepository() noexcept {
 	git::Repository repo;
 	if (repo.Open(path.c_str())) {
 	} else {
-		QMessageBox msgBox;
-		msgBox.warning(this, "Failure", "Failed to open repository.",
-			       QMessageBox::StandardButton::Ok);
+		QMessageBox::warning(this, "Failure", "Failed to open repository.",
+				     QMessageBox::StandardButton::Ok);
 	}
 }
 
@@ -58,13 +57,12 @@ void MainWindow::InitRepository() noexcept {
 	if (path.empty()) return;
 
 	git::Repository repo;
-	QMessageBox	msgBox;
 	if (repo.Create(path.c_str())) {
-		msgBox.information(this, "Success", "Successfully created repository.",
-				   QMessageBox::StandardButton::Ok);
+		QMessageBox::information(this, "Success", "Successfully created repository.",
+					 QMessageBox::StandardButton::Ok);
 	} else {
-		msgBox.warning(this, "Failure", "Failed to create repository.",
-			       QMessageBox::StandardButton::Ok);
+		QMessageBox::warning(this, "Failure", "Failed to create repository.",
+				     QMessageBox::StandardButton::Ok);
 	}
 }
 
