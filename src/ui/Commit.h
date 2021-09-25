@@ -14,7 +14,6 @@ class Commit;
 class Commit : public QWidget {
     public:
 	explicit Commit(QWidget* parent = nullptr);
-	~Commit() = default;
 
 	void Setup(const git::Commit& commit) noexcept;
 

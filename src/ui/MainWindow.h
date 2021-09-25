@@ -12,7 +12,6 @@ class QWidget;
 class MainWindow : public QMainWindow {
     public:
 	explicit MainWindow(QWidget* parent = nullptr);
-	virtual ~MainWindow() = default;
 
     private:
 	Ui::MainWindow* ui;
