@@ -1,5 +1,6 @@
 #include "MainWindow.h"
 
+#include <git2.h>
 #include <qaction.h>
 #include <qfiledialog.h>
 #include <qlayout.h>
@@ -11,6 +12,8 @@
 #include "RepoViewerWidget.h"
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
+	git_libgit2_init();
+
 	ui->setupUi(this);
 	setWindowTitle("Ez Git");
 
@@ -27,10 +30,11 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
 
 	auto* repoViewerWidget = new RepoViewerWidget(this);
 	setCentralWidget(repoViewerWidget);
-	// mainWidget	       = repoViewerWidget;
 
 	show();
 }
+
+MainWindow::~MainWindow() noexcept { git_libgit2_shutdown(); }
 
 void MainWindow::OpenRepository() noexcept {
 	QString dir = QFileDialog::getExistingDirectory(

@@ -12,10 +12,10 @@ class QWidget;
 class MainWindow : public QMainWindow {
     public:
 	explicit MainWindow(QWidget* parent = nullptr);
+	~MainWindow() noexcept;
 
     private:
 	Ui::MainWindow* ui;
-	QWidget*	mainWidget;
 
 	void OpenRepository() noexcept;
 	void InitRepository() noexcept;
