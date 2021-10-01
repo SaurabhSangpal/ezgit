@@ -11,6 +11,7 @@ AllCommits::AllCommits(QWidget* parent) : QWidget(parent), ui(new Ui::AllCommits
 	commit.Setup("Add generic comment", "Saurabh Sangpal", "asch23kcks", "18 Sep 2021 18:30");
 
 	auto* layout = new QVBoxLayout;
+	layout->setAlignment(Qt::AlignmentFlag::AlignTop);
 	ui->commitsScrollAreaContent->setLayout(layout);
 
 	for (int i = 0; i < 10; i++) {

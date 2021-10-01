@@ -46,8 +46,17 @@
         <layout class="QVBoxLayout" name="verticalLayout_6">
          <item>
           <widget class="QScrollArea" name="commitsScrollArea">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Plain</enum>
+           </property>
            <property name="widgetResizable">
             <bool>true</bool>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
            </property>
            <widget class="QWidget" name="commitsScrollAreaContent">
             <property name="geometry">
