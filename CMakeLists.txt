@@ -12,6 +12,7 @@ find_package(Qt5 COMPONENTS Widgets CONFIG REQUIRED)
 
 set(SRC src/ui/MainWindow.ui
 		src/ui/RepoViewerWidget.ui
+		src/ui/AllCommits.ui
 		src/ui/Commit.ui
 		src/ui/CloneDialog.ui
 		src/main.cc
@@ -20,6 +21,7 @@ set(SRC src/ui/MainWindow.ui
 		src/git_wrapper/Commit.cc
 		src/ui/MainWindow.cc
 		src/ui/RepoViewerWidget.cc
+		src/ui/AllCommits.cc
 		src/ui/Commit.cc
 		src/ui/CloneDialog.cc)
 

@@ -78,6 +78,9 @@ color: rgb(255, 255, 255);</string>
         </item>
         <item>
          <widget class="QScrollArea" name="scrollAreaBranches">
+          <property name="frameShape">
+           <enum>QFrame::Panel</enum>
+          </property>
           <property name="widgetResizable">
            <bool>true</bool>
           </property>
@@ -102,6 +105,9 @@ color: rgb(255, 255, 255);</string>
         </item>
         <item>
          <widget class="QScrollArea" name="scrollAreaRemotes">
+          <property name="frameShape">
+           <enum>QFrame::Panel</enum>
+          </property>
           <property name="widgetResizable">
            <bool>true</bool>
           </property>
@@ -126,6 +132,9 @@ color: rgb(255, 255, 255);</string>
         </item>
         <item>
          <widget class="QScrollArea" name="scrollAreaTags">
+          <property name="frameShape">
+           <enum>QFrame::Panel</enum>
+          </property>
           <property name="widgetResizable">
            <bool>true</bool>
           </property>
@@ -150,6 +159,9 @@ color: rgb(255, 255, 255);</string>
         </item>
         <item>
          <widget class="QScrollArea" name="scrollAreaStashes">
+          <property name="frameShape">
+           <enum>QFrame::Panel</enum>
+          </property>
           <property name="widgetResizable">
            <bool>true</bool>
           </property>
@@ -174,6 +186,12 @@ color: rgb(255, 255, 255);</string>
         </item>
         <item>
          <widget class="QScrollArea" name="scrollAreaSubmodules">
+          <property name="frameShape">
+           <enum>QFrame::Panel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Sunken</enum>
+          </property>
           <property name="widgetResizable">
            <bool>true</bool>
           </property>
@@ -205,71 +223,6 @@ color: rgb(255, 255, 255);</string>
        <height>500</height>
       </size>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_4">
-      <item>
-       <widget class="QFrame" name="frame">
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_5">
-         <item>
-          <widget class="QFrame" name="commits">
-           <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_6">
-            <item>
-             <widget class="QScrollArea" name="commitsScrollArea">
-              <property name="widgetResizable">
-               <bool>true</bool>
-              </property>
-              <widget class="QWidget" name="commitsScrollAreaContent">
-               <property name="geometry">
-                <rect>
-                 <x>0</x>
-                 <y>0</y>
-                 <width>536</width>
-                 <height>378</height>
-                </rect>
-               </property>
-              </widget>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
-          <widget class="QFrame" name="commitDetails">
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>250</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>300</height>
-            </size>
-           </property>
-           <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-     </layout>
     </widget>
    </item>
   </layout>
