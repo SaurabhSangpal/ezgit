@@ -29,11 +29,6 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
 	connect(ui->actionExit, &QAction::triggered, this, []() { std::exit(0); });
 	connect(ui->actionAbout, &QAction::triggered, this, &MainWindow::ShowAbout);
 
-	// TODO: Testing code (to be removed).
-//	auto  repo	       = git::Repository();
-//	auto* repoViewerWidget = new RepoViewerWidget(repo, this);
-//	setCentralWidget(repoViewerWidget);
-
 	show();
 }
 
