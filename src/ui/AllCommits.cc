@@ -1,5 +1,7 @@
 #include "AllCommits.h"
 
+#include <memory>
+
 #include "../git_wrapper/Commit.h"
 #include "Commit.h"
 #include "ui_AllCommits.h"
@@ -15,11 +17,17 @@ AllCommits::AllCommits(QWidget* parent) : QWidget(parent), ui(new Ui::AllCommits
 	ui->commitsScrollAreaContent->setLayout(layout);
 
 	for (int i = 0; i < 10; i++) {
-		auto* uiCommit = new Commit(ui->commitsScrollAreaContent);
-		uiCommit->Setup(commit);
-		layout->addWidget(uiCommit);
+		AddCommit(commit);
 	}
 	ui->commitsScrollArea->setWidget(ui->commitsScrollAreaContent);
 }
 
 AllCommits::~AllCommits() { delete ui; }
+
+void AllCommits::AddCommit(const git::Commit& commit) noexcept {
+	auto uiCommit = std::make_shared<Commit>(ui->commitsScrollAreaContent);
+	uiCommit->Setup(commit);
+	ui->commitsScrollAreaContent->layout()->addWidget(uiCommit.get());
+
+	commits.push_back(uiCommit);
+}

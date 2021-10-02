@@ -25,6 +25,10 @@
   <property name="windowTitle">
    <string>AllCommits</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(50, 50, 50);
+color: rgb(255, 255, 255);</string>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QFrame" name="frame">
