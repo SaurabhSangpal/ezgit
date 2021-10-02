@@ -1,8 +1,14 @@
-#include "remote.h"
+#include "Remote.h"
 
 #include <git2.h>
 
 #include "Repository.h"
+
+git::Remote::Remote(git_remote* remote) noexcept : remote(remote) {}
+
+git::Remote::~Remote() noexcept {
+	git_remote_free(remote);
+}
 
 bool git::Remote::Create(const std::string& name, const std::string& url,
 			 const git::Repository& repo) noexcept {
