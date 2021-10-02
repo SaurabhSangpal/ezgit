@@ -1,5 +1,6 @@
 #pragma once
 #include <qmainwindow.h>
+
 #include <memory>
 
 QT_BEGIN_NAMESPACE
@@ -17,7 +18,7 @@ class QWidget;
 class MainWindow : public QMainWindow {
     public:
 	explicit MainWindow(QWidget* parent = nullptr);
-	~MainWindow() noexcept;
+	~MainWindow() noexcept override;
 
     private:
 	void OpenRepository() noexcept;
@@ -27,6 +28,6 @@ class MainWindow : public QMainWindow {
 
 	void InitializeRepoViewerWidget() noexcept;
 
-	Ui::MainWindow* ui;
+	Ui::MainWindow*			 ui;
 	std::shared_ptr<git::Repository> repository;
 };

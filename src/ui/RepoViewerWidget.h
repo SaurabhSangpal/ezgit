@@ -26,8 +26,11 @@ class RepoViewerWidget : public QWidget {
 	//! Executes git_remote_list and stores the remotes in remotes.
 	bool FetchRemoteList() noexcept;
 
-	Ui::RepoViewerWidget* ui;
-	git::Repository&      repo;
-	// NOTE: Use git_remote_list to get a list of available remotes.
+	void ActivateYourChangesUI() noexcept;
+	void ActivateAllCommitsUI() noexcept;
+
+	Ui::RepoViewerWidget*			  ui;
+	git::Repository&			  repo;
 	std::vector<std::shared_ptr<git::Remote>> remotes;
+	QWidget*				  activeWidget;
 };
