@@ -35,7 +35,10 @@
    <property name="styleSheet">
     <string notr="true">background-color: rgb(50, 50, 50);
 color: rgb(255, 255, 255);
-selection-background-color: rgb(63, 63, 63);</string>
+selection-background-color: rgb(85, 170, 255);</string>
+   </property>
+   <property name="nativeMenuBar">
+    <bool>true</bool>
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
@@ -52,8 +55,15 @@ selection-background-color: rgb(63, 63, 63);</string>
      <string>View</string>
     </property>
    </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionAbout"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuView"/>
+   <addaction name="menuHelp"/>
   </widget>
   <action name="actionCreate_Repository">
    <property name="text">
@@ -77,10 +87,16 @@ selection-background-color: rgb(63, 63, 63);</string>
   </action>
   <action name="actionExit">
    <property name="icon">
-    <iconset theme="dark"/>
+    <iconset theme="dark">
+     <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="text">
     <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
    </property>
   </action>
  </widget>

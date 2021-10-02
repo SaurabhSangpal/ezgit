@@ -27,9 +27,12 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
 	connect(ui->actionClone_Repository, &QAction::triggered, this,
 		&MainWindow::CloneRepository);
 	connect(ui->actionExit, &QAction::triggered, this, []() { std::exit(0); });
+	connect(ui->actionAbout, &QAction::triggered, this, &MainWindow::ShowAbout);
 
-	auto* repoViewerWidget = new RepoViewerWidget(this);
-	setCentralWidget(repoViewerWidget);
+	// TODO: Testing code (to be removed).
+//	auto  repo	       = git::Repository();
+//	auto* repoViewerWidget = new RepoViewerWidget(repo, this);
+//	setCentralWidget(repoViewerWidget);
 
 	show();
 }
@@ -44,8 +47,10 @@ void MainWindow::OpenRepository() noexcept {
 	auto path = dir.toStdString();
 	if (path.empty()) return;
 
-	git::Repository repo;
-	if (repo.Open(path.c_str())) {
+	auto repo = std::make_shared<git::Repository>();
+	if (repo->Open(path.c_str())) {
+		repository = repo;
+		InitializeRepoViewerWidget();
 	} else {
 		QMessageBox::warning(this, "Failure", "Failed to open repository.",
 				     QMessageBox::StandardButton::Ok);
@@ -60,8 +65,10 @@ void MainWindow::InitRepository() noexcept {
 	auto path = dir.toStdString();
 	if (path.empty()) return;
 
-	git::Repository repo;
-	if (repo.Create(path.c_str())) {
+	auto repo = std::make_shared<git::Repository>();
+	if (repo->Create(path.c_str())) {
+		repository = repo;
+		InitializeRepoViewerWidget();
 		QMessageBox::information(this, "Success", "Successfully created repository.",
 					 QMessageBox::StandardButton::Ok);
 	} else {
@@ -73,4 +80,13 @@ void MainWindow::InitRepository() noexcept {
 void MainWindow::CloneRepository() noexcept {
 	auto* dialog = new CloneDialog(this);
 	dialog->exec();
+}
+
+void MainWindow::ShowAbout() noexcept {
+	QMessageBox::about(this, "About", "Created by Saurabh Sangpal\n2021 All Rights Reserved.");
+}
+
+void MainWindow::InitializeRepoViewerWidget() noexcept {
+	auto* repoViewerWidget = new RepoViewerWidget(*repository, this);
+	setCentralWidget(repoViewerWidget);
 }

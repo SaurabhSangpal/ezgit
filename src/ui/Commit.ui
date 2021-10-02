@@ -33,7 +33,8 @@
   </property>
   <property name="styleSheet">
    <string notr="true">font: 8pt &quot;Consolas&quot;;
-color: rgb(255, 255, 255);</string>
+color: rgb(255, 255, 255);
+selection-color: rgb(85, 170, 255);</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
