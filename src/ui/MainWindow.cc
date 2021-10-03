@@ -19,6 +19,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
 
 	ui->actionCreate_Repository->setShortcuts(QKeySequence::New);
 	ui->actionOpen_Repository->setShortcuts(QKeySequence::Open);
+	ui->actionClone_Repository->setShortcut(QKeySequence("Ctrl+Shift+O"));
 	ui->actionExit->setShortcuts(QKeySequence::Quit);
 
 	connect(ui->actionCreate_Repository, &QAction::triggered, this,
