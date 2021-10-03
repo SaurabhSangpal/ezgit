@@ -32,7 +32,7 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">font: 8pt &quot;Consolas&quot;;
+   <string notr="true">font: 8pt &quot;Noto Mono&quot;;
 color: rgb(255, 255, 255);
 selection-color: rgb(85, 170, 255);</string>
   </property>

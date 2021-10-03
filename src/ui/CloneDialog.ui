@@ -15,6 +15,7 @@
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(50, 50, 50);
+font: 7.5pt &quot;Noto Sans&quot;;
 color: rgb(255, 255, 255);</string>
   </property>
   <widget class="QLabel" name="label">
@@ -28,8 +29,11 @@ color: rgb(255, 255, 255);</string>
    </property>
    <property name="font">
     <font>
-     <weight>75</weight>
-     <bold>true</bold>
+     <family>Noto Sans</family>
+     <pointsize>8</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
     </font>
    </property>
    <property name="text">
