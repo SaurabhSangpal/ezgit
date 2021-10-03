@@ -12,6 +12,8 @@ RepoViewerWidget::RepoViewerWidget(git::Repository& repo, QWidget* parent)
 	ui->setupUi(this);
 	activeWidget = nullptr;
 
+	ui->lblRepoName->setText(repo.GetRepoLocation().c_str());
+
 	connect(ui->btnYourChanges, &QPushButton::clicked, this,
 		&RepoViewerWidget::ActivateYourChangesUI);
 	connect(ui->btnAllCommits, &QPushButton::clicked, this,
@@ -42,7 +44,7 @@ bool RepoViewerWidget::FetchRemoteList() noexcept {
 	return false;
 }
 
-QLayout* GetActiveLayoutOnRightElement(Ui::RepoViewerWidget* ui);
+QLayout* FetchOrCreateLayoutOnRight(Ui::RepoViewerWidget* ui);
 
 void RepoViewerWidget::ActivateYourChangesUI() noexcept {
 	if (activeWidget != nullptr) activeWidget->deleteLater();
@@ -52,7 +54,7 @@ void RepoViewerWidget::ActivateYourChangesUI() noexcept {
 void RepoViewerWidget::ActivateAllCommitsUI() noexcept {
 	// TODO: Check why the program crashes here?
 //	if (activeWidget != nullptr) activeWidget->deleteLater();
-	auto* layout  = GetActiveLayoutOnRightElement(ui);
+	auto* layout  = FetchOrCreateLayoutOnRight(ui);
 	auto* commits = new AllCommits(ui->right);
 	layout->addWidget(commits);
 
@@ -60,7 +62,7 @@ void RepoViewerWidget::ActivateAllCommitsUI() noexcept {
 }
 
 //! Helper method to get the layout on ui->right
-QLayout* GetActiveLayoutOnRightElement(Ui::RepoViewerWidget* ui) {
+QLayout* FetchOrCreateLayoutOnRight(Ui::RepoViewerWidget* ui) {
 	QLayout* layout = nullptr;
 	if (ui->right->layout() != nullptr) {
 		layout = ui->right->layout();

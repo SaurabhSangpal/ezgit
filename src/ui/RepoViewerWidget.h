@@ -15,6 +15,8 @@ class Repository;
 class Remote;
 }  // namespace git
 
+typedef std::vector<std::shared_ptr<git::Remote>> Remotes;
+
 class RepoViewerWidget : public QWidget {
     public:
 	explicit RepoViewerWidget(git::Repository& repo, QWidget* parent = nullptr);
@@ -29,8 +31,8 @@ class RepoViewerWidget : public QWidget {
 	void ActivateYourChangesUI() noexcept;
 	void ActivateAllCommitsUI() noexcept;
 
-	Ui::RepoViewerWidget*			  ui;
-	git::Repository&			  repo;
-	std::vector<std::shared_ptr<git::Remote>> remotes;
-	QWidget*				  activeWidget;
+	Ui::RepoViewerWidget* ui;
+	git::Repository&      repo;
+	Remotes		      remotes;
+	QWidget*	      activeWidget;
 };

@@ -1,10 +1,11 @@
 #pragma once
 
-#include <QApplication.h>
+#include <qapplication.h>
 
+#include <string>
 #include <vector>
 
-#include "remote.h"
+#include "Remote.h"
 
 struct git_repository;
 struct git_status_list;
@@ -24,11 +25,14 @@ class Repository {
 
 	git_status_list** Status() noexcept;
 
-	bool		IsGitRepoNonNull() const noexcept { return repo != nullptr; }
-	git_repository* GetRepository() const noexcept { return repo; }
+	[[nodiscard]] bool	      IsGitRepoNonNull() const noexcept { return repo != nullptr; }
+	[[nodiscard]] git_repository* GetRepository() const noexcept { return repo; }
+
+	[[nodiscard]] std::string GetRepoLocation() const noexcept { return repoLocation; }
 
     private:
 	git_repository*		 repo;
+	std::string		 repoLocation;
 	std::vector<git::Remote> remotes;
 };
 }  // namespace git
