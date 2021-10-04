@@ -18,13 +18,14 @@ RepoViewerWidget::RepoViewerWidget(git::Repository& repo, QWidget* parent)
 		&RepoViewerWidget::ActivateYourChangesUI);
 	connect(ui->btnAllCommits, &QPushButton::clicked, this,
 		&RepoViewerWidget::ActivateAllCommitsUI);
+
+	FetchRemoteList();
+	ActivateAllCommitsUI();
 }
 
 RepoViewerWidget::~RepoViewerWidget() noexcept { delete ui; }
 
-std::vector<std::shared_ptr<git::Remote>> RepoViewerWidget::GetRemotes() const noexcept {
-	return remotes;
-}
+Remotes RepoViewerWidget::GetRemotes() const noexcept { return remotes; }
 
 bool RepoViewerWidget::FetchRemoteList() noexcept {
 	git_strarray out = {nullptr};
@@ -44,25 +45,28 @@ bool RepoViewerWidget::FetchRemoteList() noexcept {
 	return false;
 }
 
-QLayout* FetchOrCreateLayoutOnRight(Ui::RepoViewerWidget* ui);
+void RepoViewerWidget::DestroyActiveWidget() noexcept {
+	if (!activeWidgetDestroyed) activeWidget->deleteLater();
+	activeWidgetDestroyed = true;
+}
 
 void RepoViewerWidget::ActivateYourChangesUI() noexcept {
-	if (activeWidget != nullptr) activeWidget->deleteLater();
+	DestroyActiveWidget();
 	// TODO: Implement activate your changes UI.
 }
 
 void RepoViewerWidget::ActivateAllCommitsUI() noexcept {
-	// TODO: Check why the program crashes here?
-//	if (activeWidget != nullptr) activeWidget->deleteLater();
-	auto* layout  = FetchOrCreateLayoutOnRight(ui);
-	auto* commits = new AllCommits(ui->right);
+	DestroyActiveWidget();
+
+	auto* layout  = FetchOrCreateLayoutOnRight();
+	auto* commits = new AllCommits(repo, ui->right);
 	layout->addWidget(commits);
+	activeWidgetDestroyed = false;
 
 	activeWidget = commits;
 }
 
-//! Helper method to get the layout on ui->right
-QLayout* FetchOrCreateLayoutOnRight(Ui::RepoViewerWidget* ui) {
+QLayout* RepoViewerWidget::FetchOrCreateLayoutOnRight() noexcept {
 	QLayout* layout = nullptr;
 	if (ui->right->layout() != nullptr) {
 		layout = ui->right->layout();

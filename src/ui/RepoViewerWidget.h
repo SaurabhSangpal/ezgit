@@ -22,15 +22,21 @@ class RepoViewerWidget : public QWidget {
 	explicit RepoViewerWidget(git::Repository& repo, QWidget* parent = nullptr);
 	~RepoViewerWidget() noexcept override;
 
-	[[nodiscard]] std::vector<std::shared_ptr<git::Remote>> GetRemotes() const noexcept;
+	[[nodiscard]] Remotes GetRemotes() const noexcept;
 
     private:
 	//! Executes git_remote_list and stores the remotes in remotes.
 	bool FetchRemoteList() noexcept;
 
+	void DestroyActiveWidget() noexcept;
 	void ActivateYourChangesUI() noexcept;
 	void ActivateAllCommitsUI() noexcept;
 
+	//! If a layout is present on ui->right, then fetches it. Otherwise creates and assigns
+	//! a layout to ui->right and returns that.
+	QLayout* FetchOrCreateLayoutOnRight() noexcept;
+
+	bool		      activeWidgetDestroyed = false;
 	Ui::RepoViewerWidget* ui;
 	git::Repository&      repo;
 	Remotes		      remotes;
