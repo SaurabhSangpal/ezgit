@@ -6,7 +6,7 @@
 
 #include "../git_wrapper/Commit.h"
 #include "../git_wrapper/Repository.h"
-#include "Commit.h"
+#include "CustomCommit.h"
 #include "ui_AllCommits.h"
 
 AllCommits::AllCommits(git::Repository& repo, QWidget* parent)
@@ -24,7 +24,7 @@ AllCommits::AllCommits(git::Repository& repo, QWidget* parent)
 AllCommits::~AllCommits() { delete ui; }
 
 void AllCommits::AddCommit(const git::Commit& commit) noexcept {
-	auto uiCommit = std::make_shared<Commit>(ui->commitsScrollAreaContent);
+	auto uiCommit = std::make_shared<CustomCommit>(ui->commitsScrollAreaContent);
 	uiCommit->Setup(commit);
 	ui->commitsScrollAreaContent->layout()->addWidget(uiCommit.get());
 

@@ -15,9 +15,9 @@ class Commit;
 class Repository;
 }  // namespace git
 
-class Commit;
+class CustomCommit;
 
-typedef std::vector<std::shared_ptr<Commit>> Commits;
+typedef std::vector<std::shared_ptr<CustomCommit>> Commits;
 
 class AllCommits : public QWidget {
 	Q_OBJECT
