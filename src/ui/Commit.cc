@@ -30,13 +30,13 @@ Commit::Commit(QWidget* parent) {
 
 	auto* spacer = new QSpacerItem(60, 0, QSizePolicy::Expanding);
 
-	hLayout->addWidget(message);
+	hLayout->addWidget(message, 0, Qt::AlignTop);
 	hLayout->addSpacerItem(spacer);
-	hLayout->addWidget(author);
+	hLayout->addWidget(author, 0, Qt::AlignTop);
 	hLayout->addSpacing(20);
-	hLayout->addWidget(hash);
+	hLayout->addWidget(hash, 0, Qt::AlignTop);
 	hLayout->addSpacing(20);
-	hLayout->addWidget(date);
+	hLayout->addWidget(date, 0, Qt::AlignTop);
 	hLayout->addSpacing(5);
 
 	show();
