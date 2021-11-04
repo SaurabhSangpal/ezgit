@@ -13,7 +13,6 @@ find_package(Qt5 COMPONENTS Widgets CONFIG REQUIRED)
 set(SRC src/ui/MainWindow.ui
 		src/ui/RepoViewerWidget.ui
 		src/ui/AllCommits.ui
-		src/ui/Commit.ui
 		src/ui/CloneDialog.ui
 		src/main.cc
 		src/git_wrapper/Repository.cc
@@ -22,9 +21,9 @@ set(SRC src/ui/MainWindow.ui
 		src/ui/MainWindow.cc
 		src/ui/RepoViewerWidget.cc
 		src/ui/AllCommits.cc
-		src/ui/Commit.cc
 		src/ui/CloneDialog.cc
-		src/ui/CustomCommit.cc)
+		src/ui/Commit.cc
+		src/config/Config.cc)
 
 add_executable(ezgit WIN32 ${SRC})
 target_include_directories(ezgit PRIVATE ${PROJECT_SOURCE_DIR}/vendor/libgit2/include)

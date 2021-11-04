@@ -1,22 +1,22 @@
 #pragma once
-#include <qwidget.h>
 
-QT_BEGIN_NAMESPACE
-namespace Ui {
-class Commit;
-}
-QT_END_NAMESPACE
+#include <qwidget.h>
 
 namespace git {
 class Commit;
 }
 
+class QPushButton;
+class QLabel;
+
 class Commit : public QWidget {
+	Q_OBJECT
+
     public:
 	explicit Commit(QWidget* parent = nullptr);
-
-	void Setup(const git::Commit& commit) noexcept;
+	void Setup(const git::Commit& commit);
 
     private:
-	Ui::Commit* ui;
+	QPushButton* button;
+	QLabel *     message, *author, *hash, *date;
 };

@@ -72,6 +72,7 @@ QLayout* RepoViewerWidget::FetchOrCreateLayoutOnRight() noexcept {
 		layout = ui->right->layout();
 	} else {
 		layout = new QVBoxLayout;
+		layout->setMargin(0);
 		ui->right->setLayout(layout);
 	}
 	return layout;
