@@ -40,5 +40,5 @@ class RepoViewerWidget : public QWidget {
 	Ui::RepoViewerWidget* ui;
 	git::Repository&      repo;
 	Remotes		      remotes;
-	QWidget*	      activeWidget;
+	QWidget *	      allCommitsWidget, *yourChangesWidget;
 };

@@ -10,7 +10,7 @@
 RepoViewerWidget::RepoViewerWidget(git::Repository& repo, QWidget* parent)
     : QWidget(parent), ui(new Ui::RepoViewerWidget), repo(repo) {
 	ui->setupUi(this);
-	activeWidget = nullptr;
+	allCommitsWidget = yourChangesWidget = nullptr;
 
 	ui->lblRepoName->setText(repo.GetRepoLocation().c_str());
 
@@ -46,8 +46,12 @@ bool RepoViewerWidget::FetchRemoteList() noexcept {
 }
 
 void RepoViewerWidget::DestroyActiveWidget() noexcept {
-	if (!activeWidgetDestroyed) activeWidget->deleteLater();
-	activeWidgetDestroyed = true;
+	if (allCommitsWidget != nullptr && allCommitsWidget->isEnabled()) {
+		allCommitsWidget->hide();
+	}
+	if (yourChangesWidget != nullptr && yourChangesWidget->isEnabled()) {
+		yourChangesWidget->hide();
+	}
 }
 
 void RepoViewerWidget::ActivateYourChangesUI() noexcept {
@@ -58,12 +62,15 @@ void RepoViewerWidget::ActivateYourChangesUI() noexcept {
 void RepoViewerWidget::ActivateAllCommitsUI() noexcept {
 	DestroyActiveWidget();
 
-	auto* layout  = FetchOrCreateLayoutOnRight();
-	auto* commits = new AllCommits(repo, ui->right);
-	layout->addWidget(commits);
-	activeWidgetDestroyed = false;
-
-	activeWidget = commits;
+	if (allCommitsWidget == nullptr) {
+		auto* layout  = FetchOrCreateLayoutOnRight();
+		auto* commits = new AllCommits(repo, ui->right);
+		layout->addWidget(commits);
+		activeWidgetDestroyed = false;
+		allCommitsWidget      = commits;
+	} else {
+		allCommitsWidget->show();
+	}
 }
 
 QLayout* RepoViewerWidget::FetchOrCreateLayoutOnRight() noexcept {
