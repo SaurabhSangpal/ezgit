@@ -23,7 +23,7 @@ set(SRC src/ui/MainWindow.ui
 		src/ui/AllCommits.cc
 		src/ui/CloneDialog.cc
 		src/ui/Commit.cc
-		src/config/Config.cc)
+		src/config/Config.cc src/ui/YourChanges.cc src/ui/YourChanges.h)
 
 add_executable(ezgit WIN32 ${SRC})
 target_include_directories(ezgit PRIVATE ${PROJECT_SOURCE_DIR}/vendor/libgit2/include)
