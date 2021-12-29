@@ -6,6 +6,7 @@
 #include "../git_wrapper/Repository.h"
 #include "./ui_RepoViewerWidget.h"
 #include "AllCommits.h"
+#include "YourChanges.h"
 
 RepoViewerWidget::RepoViewerWidget(git::Repository& repo, QWidget* parent)
     : QWidget(parent), ui(new Ui::RepoViewerWidget), repo(repo) {
@@ -45,7 +46,7 @@ bool RepoViewerWidget::FetchRemoteList() noexcept {
 	return false;
 }
 
-void RepoViewerWidget::DestroyActiveWidget() noexcept {
+void RepoViewerWidget::DisableBothWidgets() noexcept {
 	if (allCommitsWidget != nullptr && allCommitsWidget->isEnabled()) {
 		allCommitsWidget->hide();
 	}
@@ -55,19 +56,25 @@ void RepoViewerWidget::DestroyActiveWidget() noexcept {
 }
 
 void RepoViewerWidget::ActivateYourChangesUI() noexcept {
-	DestroyActiveWidget();
+	DisableBothWidgets();
 	// TODO: Implement activate your changes UI.
+	if (yourChangesWidget == nullptr) {
+		auto* layout	  = FetchOrCreateLayoutOnRight();
+		yourChangesWidget = new YourChanges(repo, ui->right);
+		layout->addWidget(yourChangesWidget);
+	} else {
+		yourChangesWidget->show();
+	}
 }
 
 void RepoViewerWidget::ActivateAllCommitsUI() noexcept {
-	DestroyActiveWidget();
+	DisableBothWidgets();
 
 	if (allCommitsWidget == nullptr) {
 		auto* layout  = FetchOrCreateLayoutOnRight();
 		auto* commits = new AllCommits(repo, ui->right);
 		layout->addWidget(commits);
-		activeWidgetDestroyed = false;
-		allCommitsWidget      = commits;
+		allCommitsWidget = commits;
 	} else {
 		allCommitsWidget->show();
 	}

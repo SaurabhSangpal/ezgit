@@ -28,7 +28,8 @@ class RepoViewerWidget : public QWidget {
 	//! Executes git_remote_list and stores the remotes in remotes.
 	bool FetchRemoteList() noexcept;
 
-	void DestroyActiveWidget() noexcept;
+	//! Disables allCommitsWidget and yourChangesWidget.
+	void DisableBothWidgets() noexcept;
 	void ActivateYourChangesUI() noexcept;
 	void ActivateAllCommitsUI() noexcept;
 
@@ -36,7 +37,6 @@ class RepoViewerWidget : public QWidget {
 	//! a layout to ui->right and returns that.
 	QLayout* FetchOrCreateLayoutOnRight() noexcept;
 
-	bool		      activeWidgetDestroyed = false;
 	Ui::RepoViewerWidget* ui;
 	git::Repository&      repo;
 	Remotes		      remotes;
