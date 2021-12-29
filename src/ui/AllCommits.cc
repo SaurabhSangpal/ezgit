@@ -9,6 +9,8 @@
 #include "Commit.h"
 #include "ui_AllCommits.h"
 
+inline std::string GetTime(const git_time* inTime, const char* prefix);
+
 AllCommits::AllCommits(git::Repository& repo, QWidget* parent)
     : QWidget(parent), ui(new Ui::AllCommits), repo(repo) {
 	ui->setupUi(this);
@@ -18,6 +20,8 @@ AllCommits::AllCommits(git::Repository& repo, QWidget* parent)
 	ui->commitsScrollAreaContent->setLayout(layout);
 	ui->commitsScrollArea->setWidget(ui->commitsScrollAreaContent);
 
+	// TODO: Store log in a array of structs or sth and then construct UI
+	// This needs to be done since we cannot create Widgets in non-UI thread.
 	FetchLog();
 }
 
@@ -30,7 +34,6 @@ void AllCommits::AddCommit(const git::Commit& commit) noexcept {
 
 	commits.push_back(uiCommit);
 }
-inline std::string GetTime(const git_time* inTime, const char* prefix);
 
 void AllCommits::FetchLog() noexcept {
 	int		 parents;
@@ -55,14 +58,13 @@ void AllCommits::FetchLog() noexcept {
 			continue;
 		}
 
-		git::Commit gc;
-
 		auto* author  = git_commit_author(commit);
 		auto* message = git_commit_message(commit);
 		char  buf[GIT_OID_HEXSZ + 1];
 		git_oid_tostr(buf, sizeof(buf), git_commit_id(commit));
 		auto time = GetTime(&author->when, "");
 
+		git::Commit gc{};
 		gc.Setup(message, author->name, buf, time);
 		AddCommit(gc);
 	}
