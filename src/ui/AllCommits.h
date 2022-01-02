@@ -26,10 +26,12 @@ class AllCommits : public QWidget {
 	explicit AllCommits(git::Repository& repo, QWidget* parent = nullptr);
 	~AllCommits() override;
 
-	void AddCommit(const git::Commit& commit) noexcept;
+	void Fetch() noexcept;
 
     private:
-	void FetchLog() noexcept;
+	std::vector<git::Commit> FetchLog() noexcept;
+	void			 AddCommit(const git::Commit& commit) noexcept;
+	void DisplayAllCommits(const std::vector<git::Commit>& commitsVec) noexcept;
 
 	Ui::AllCommits*	 ui;
 	Commits		 commits;

@@ -1,8 +1,10 @@
 #include "AllCommits.h"
 
 #include <git2.h>
+#include <qlabel.h>
 
-#include <memory>
+#include <future>
+#include <thread>
 
 #include "../git_wrapper/Commit.h"
 #include "../git_wrapper/Repository.h"
@@ -20,12 +22,16 @@ AllCommits::AllCommits(git::Repository& repo, QWidget* parent)
 	ui->commitsScrollAreaContent->setLayout(layout);
 	ui->commitsScrollArea->setWidget(ui->commitsScrollAreaContent);
 
-	// TODO: Store log in a array of structs or sth and then construct UI
-	// This needs to be done since we cannot create Widgets in non-UI thread.
-	FetchLog();
+	Fetch();
 }
 
 AllCommits::~AllCommits() { delete ui; }
+
+void AllCommits::Fetch() noexcept {
+	auto log = std::async(std::launch::async, &AllCommits::FetchLog, this);
+	log.wait_for(std::chrono::seconds(10));
+	DisplayAllCommits(log.get());
+}
 
 void AllCommits::AddCommit(const git::Commit& commit) noexcept {
 	auto uiCommit = std::make_shared<Commit>(ui->commitsScrollAreaContent);
@@ -35,7 +41,7 @@ void AllCommits::AddCommit(const git::Commit& commit) noexcept {
 	commits.push_back(uiCommit);
 }
 
-void AllCommits::FetchLog() noexcept {
+std::vector<git::Commit> AllCommits::FetchLog() noexcept {
 	int		 parents;
 	git_diff_options diffOptions = GIT_DIFF_OPTIONS_INIT;
 	git_oid		 oid;
@@ -45,12 +51,14 @@ void AllCommits::FetchLog() noexcept {
 
 	if (git_revwalk_new(&revwalk, repo.GetRepository()) != 0) {
 		// TODO: Decide what happens here.
-		return;
+		return {};
 	}
 	if (git_revwalk_sorting(revwalk, GIT_SORT_TIME) != 0) {
-		return;
+		return {};
 	}
 	git_revwalk_push_head(revwalk);
+
+	std::vector<git::Commit> out;
 
 	for (; git_revwalk_next(&oid, revwalk) == 0; git_commit_free(commit)) {
 		if (git_commit_lookup(&commit, repo.GetRepository(), &oid) != 0) {
@@ -66,11 +74,19 @@ void AllCommits::FetchLog() noexcept {
 
 		git::Commit gc{};
 		gc.Setup(message, author->name, buf, time);
-		AddCommit(gc);
+		out.push_back(gc);
 	}
 
 	git_revwalk_free(revwalk);
 	git_pathspec_free(ps);
+
+	return out;
+}
+
+void AllCommits::DisplayAllCommits(const std::vector<git::Commit>& commitsVec) noexcept {
+	for (auto& i : commitsVec) {
+		AddCommit(i);
+	}
 }
 
 inline std::string GetTime(const git_time* inTime, const char* prefix) {
