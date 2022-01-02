@@ -7,14 +7,15 @@ class Repository;
 }
 
 class QFrame;
-struct git_status_list;
+struct git_index;
 
 class YourChanges : public QWidget {
 	Q_OBJECT
     public:
 	explicit YourChanges(git::Repository& repo, QWidget* parent = nullptr);
+	~YourChanges() noexcept override;
 
     private:
 	QFrame *staged, *unstaged;
-	git_status_list* statusList;
+	git_index* index;
 };

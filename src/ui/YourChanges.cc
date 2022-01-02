@@ -10,9 +10,8 @@ YourChanges::YourChanges(git::Repository& repo, QWidget* parent) {
 	setParent(parent);
 
 	auto* gitRepository = repo.GetRepository();
-	git_status_options* options;
-	git_status_options_init(options, GIT_STATUS_OPTIONS_VERSION);
-	git_status_list_new(&statusList, gitRepository, options);
+	index		    = nullptr;
+	if (git_repository_index(&index, gitRepository) != 0) return;
 
 	auto* layout = new QVBoxLayout(this);
 	layout->setMargin(0);
@@ -28,6 +27,6 @@ YourChanges::YourChanges(git::Repository& repo, QWidget* parent) {
 	layout->addWidget(unstaged);
 	auto* unstagedLayout = new QVBoxLayout(unstaged);
 	unstaged->setLayout(unstagedLayout);
-
-	git_status_list_free(statusList);
 }
+
+YourChanges::~YourChanges() noexcept { git_index_free(index); }
