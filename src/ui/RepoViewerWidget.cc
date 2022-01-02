@@ -30,7 +30,7 @@ Remotes RepoViewerWidget::GetRemotes() const noexcept { return remotes; }
 
 bool RepoViewerWidget::FetchRemoteList() noexcept {
 	git_strarray out = {nullptr};
-	if (git_remote_list(&out, repo.GetRepository()) != 0) {
+	if (git_remote_list(&out, repo.GetRepository()) == 0) {
 		for (int i = 0; i < out.count; i++) {
 			git_remote* remote = {nullptr};
 			if (git_remote_lookup(&remote, repo.GetRepository(), out.strings[i]) != 0)
@@ -38,7 +38,6 @@ bool RepoViewerWidget::FetchRemoteList() noexcept {
 
 			auto r = std::make_shared<git::Remote>(git::Remote(remote));
 			remotes.push_back(r);
-			git_remote_free(remote);
 		}
 		git_strarray_free(&out);
 		return true;
