@@ -28,14 +28,18 @@ Commit::Commit(QWidget* parent) {
 	hash	= new QLabel(this);
 	date	= new QLabel(this);
 
+	author->setFixedWidth(100);
+	hash->setFixedWidth(40);
+	date->setFixedWidth(170);
+
 	auto* spacer = new QSpacerItem(60, 0, QSizePolicy::Expanding);
 
 	hLayout->addWidget(message, 0, Qt::AlignTop);
 	hLayout->addSpacerItem(spacer);
 	hLayout->addWidget(author, 0, Qt::AlignTop);
-	hLayout->addSpacing(20);
+	hLayout->addSpacing(10);
 	hLayout->addWidget(hash, 0, Qt::AlignTop);
-	hLayout->addSpacing(20);
+	hLayout->addSpacing(10);
 	hLayout->addWidget(date, 0, Qt::AlignTop);
 	hLayout->addSpacing(5);
 
