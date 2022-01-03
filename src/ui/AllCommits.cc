@@ -29,7 +29,6 @@ AllCommits::~AllCommits() { delete ui; }
 
 void AllCommits::Fetch() noexcept {
 	auto log = std::async(std::launch::async, &AllCommits::FetchLog, this);
-	log.wait_for(std::chrono::seconds(10));
 	DisplayAllCommits(log.get());
 }
 
@@ -68,12 +67,16 @@ std::vector<git::Commit> AllCommits::FetchLog() noexcept {
 
 		auto* author  = git_commit_author(commit);
 		auto* message = git_commit_message(commit);
-		char  buf[GIT_OID_HEXSZ + 1];
+		auto* body    = git_commit_body(commit);
+		if (body == nullptr || body == NULL) {
+			body = "";
+		}
+		char buf[7 + 1];
 		git_oid_tostr(buf, sizeof(buf), git_commit_id(commit));
 		auto time = GetTime(&author->when, "");
 
 		git::Commit gc{};
-		gc.Setup(message, author->name, buf, time);
+		gc.Setup(message, author->name, buf, time, body);
 		out.push_back(gc);
 	}
 
