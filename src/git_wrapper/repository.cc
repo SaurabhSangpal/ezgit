@@ -78,7 +78,7 @@ std::vector<std::string> git::Repository::GetModifiedFiles() noexcept {
 		if (old_path && new_path && strcmp(old_path, new_path)) {
 			string = std::string(("%s  %s", old_path, new_path));
 		} else {
-			string = std::string(("%s", old_path ? old_path : new_path));
+			string = std::string(old_path ? old_path : new_path));
 		}
 		modifiedFiles.push_back(string);
 	}
