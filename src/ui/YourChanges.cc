@@ -2,6 +2,7 @@
 
 #include <git2.h>
 #include <qframe.h>
+#include <qlabel.h>
 #include <qlayout.h>
 
 #include "../git_wrapper/Repository.h"
@@ -27,6 +28,15 @@ YourChanges::YourChanges(git::Repository& repo, QWidget* parent) {
 	layout->addWidget(unstaged);
 	auto* unstagedLayout = new QVBoxLayout(unstaged);
 	unstaged->setLayout(unstagedLayout);
+
+	// Fetch status
+	auto status = repo.GetModifiedFiles();
+	for (const std::string& file : status) {
+		auto* label  = new QLabel(this);
+		auto  string = QString::fromStdString(file);
+		label->setText(string);
+		stagedLayout->addWidget(label);
+	}
 }
 
 YourChanges::~YourChanges() noexcept { git_index_free(index); }

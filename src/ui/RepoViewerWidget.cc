@@ -56,7 +56,7 @@ void RepoViewerWidget::DisableBothWidgets() noexcept {
 
 void RepoViewerWidget::ActivateYourChangesUI() noexcept {
 	DisableBothWidgets();
-	// TODO: Implement activate your changes UI.
+
 	if (yourChangesWidget == nullptr) {
 		auto* layout	  = FetchOrCreateLayoutOnRight();
 		yourChangesWidget = new YourChanges(repo, ui->right);
