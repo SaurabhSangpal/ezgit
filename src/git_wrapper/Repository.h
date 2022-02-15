@@ -23,8 +23,6 @@ class Repository {
 	// Returns true if repository is cloned successfully.
 	bool Clone(const char* url, const char* directory) noexcept;
 
-	git_status_list** Status() noexcept;
-
 	// Gets list of modified files in the status list.
 	// TODO: Differentiate between staged and unstaged files.
 	// TODO: Differentiate between new/modified/deleted/moved, etc files.

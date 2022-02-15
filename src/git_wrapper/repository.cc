@@ -20,16 +20,6 @@ bool git::Repository::Clone(const char* url, const char* directory) noexcept {
 	return error == 0;
 }
 
-git_status_list** git::Repository::Status() noexcept {
-	git_status_list** list{};
-	int		  error = git_status_list_new(list, repo, NULL);
-	if (error == 0) {
-		return list;
-	}
-
-	return nullptr;
-}
-
 std::vector<std::string> git::Repository::GetModifiedFiles() noexcept {
 	std::vector<std::string> modifiedFiles;
 
