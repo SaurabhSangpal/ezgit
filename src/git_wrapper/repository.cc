@@ -32,10 +32,10 @@ std::vector<std::string> git::Repository::GetModifiedFiles() noexcept {
 	auto numEntries = git_status_list_entrycount(status);
 
 	const git_status_entry* statusEntry;
-	const char *		old_path = nullptr, *new_path = nullptr;
+	const char *		oldPath, *newPath;
 	for (int i = 0; i < numEntries; i++) {
-		old_path = new_path = nullptr;
-		statusEntry	    = git_status_byindex(status, i);
+		oldPath = newPath = nullptr;
+		statusEntry	  = git_status_byindex(status, i);
 
 		if (statusEntry->status == GIT_STATUS_CURRENT) continue;
 
@@ -57,18 +57,18 @@ std::vector<std::string> git::Repository::GetModifiedFiles() noexcept {
 		}
 
 		if (statusEntry->head_to_index) {
-			old_path = statusEntry->head_to_index->old_file.path;
-			new_path = statusEntry->head_to_index->new_file.path;
+			oldPath = statusEntry->head_to_index->old_file.path;
+			newPath = statusEntry->head_to_index->new_file.path;
 		} else if (statusEntry->index_to_workdir) {
-			old_path = statusEntry->index_to_workdir->old_file.path;
-			new_path = statusEntry->index_to_workdir->new_file.path;
+			oldPath = statusEntry->index_to_workdir->old_file.path;
+			newPath = statusEntry->index_to_workdir->new_file.path;
 		}
 
 		std::string string;
-		if (old_path && new_path && strcmp(old_path, new_path)) {
-			string = std::string(("%s  %s", old_path, new_path));
+		if (oldPath && newPath && strcmp(oldPath, newPath)) {
+			string = std::string(("%s  %s", oldPath, newPath));
 		} else {
-			string = std::string(old_path ? old_path : new_path));
+			string = std::string(oldPath ? oldPath : newPath);
 		}
 		modifiedFiles.push_back(string);
 	}
