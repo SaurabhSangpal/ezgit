@@ -18,12 +18,14 @@ set(SRC src/ui/MainWindow.ui
 		src/git_wrapper/Repository.cc
 		src/git_wrapper/Remote.cc
 		src/git_wrapper/Commit.cc
+		src/git_wrapper/File.cc
 		src/ui/MainWindow.cc
 		src/ui/RepoViewerWidget.cc
 		src/ui/AllCommits.cc
 		src/ui/CloneDialog.cc
 		src/ui/Commit.cc
-		src/config/Config.cc src/ui/YourChanges.cc src/ui/YourChanges.h)
+		src/config/Config.cc
+		src/ui/YourChanges.cc)
 
 add_executable(ezgit WIN32 ${SRC})
 target_include_directories(ezgit PRIVATE ${PROJECT_SOURCE_DIR}/vendor/libgit2/include)
