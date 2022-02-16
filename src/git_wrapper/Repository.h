@@ -9,7 +9,6 @@
 #include "Remote.h"
 
 struct git_repository;
-struct git_status_list;
 
 namespace git {
 class Repository {
@@ -40,6 +39,9 @@ class Repository {
 	[[nodiscard]] std::string GetRepoLocation() const noexcept { return repoLocation; }
 
     private:
+	// Should this git status entry be processed into a File?
+	static bool ShouldProcess(git_status_t status);
+
 	git_repository*		 repo;
 	std::string		 repoLocation;
 	std::vector<git::Remote> remotes;

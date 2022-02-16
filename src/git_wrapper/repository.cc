@@ -39,22 +39,7 @@ std::vector<std::string> git::Repository::GetChangedFiles() noexcept {
 
 		if (statusEntry->status == GIT_STATUS_CURRENT) continue;
 
-		// TODO: Differentiate between staged and unstaged files.
-		switch (statusEntry->status) {
-			case GIT_STATUS_INDEX_NEW:
-			case GIT_STATUS_INDEX_MODIFIED:
-			case GIT_STATUS_INDEX_DELETED:
-			case GIT_STATUS_INDEX_RENAMED:
-			case GIT_STATUS_INDEX_TYPECHANGE:
-			case GIT_STATUS_WT_NEW:
-			case GIT_STATUS_WT_MODIFIED:
-			case GIT_STATUS_WT_DELETED:
-			case GIT_STATUS_WT_RENAMED:
-			case GIT_STATUS_WT_TYPECHANGE:
-				break;
-			default:
-				continue;
-		}
+		if (!ShouldProcess(statusEntry->status)) continue;
 
 		if (statusEntry->head_to_index) {
 			oldPath = statusEntry->head_to_index->old_file.path;
@@ -74,4 +59,14 @@ std::vector<std::string> git::Repository::GetChangedFiles() noexcept {
 	}
 
 	return modifiedFiles;
+}
+
+bool git::Repository::IsBare() const noexcept { return git_repository_is_bare(repo); }
+
+bool git::Repository::ShouldProcess(git_status_t status) {
+	return status == GIT_STATUS_INDEX_NEW || status == GIT_STATUS_INDEX_MODIFIED ||
+	       status == GIT_STATUS_INDEX_DELETED || status == GIT_STATUS_INDEX_RENAMED ||
+	       status == GIT_STATUS_INDEX_TYPECHANGE || status == GIT_STATUS_WT_NEW ||
+	       status == GIT_STATUS_WT_MODIFIED || status == GIT_STATUS_WT_DELETED ||
+	       status == GIT_STATUS_WT_RENAMED || status == GIT_STATUS_WT_TYPECHANGE;
 }
