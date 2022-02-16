@@ -20,11 +20,11 @@ bool git::Repository::Clone(const char* url, const char* directory) noexcept {
 	return error == 0;
 }
 
-std::vector<std::string> git::Repository::GetModifiedFiles() noexcept {
+std::vector<std::string> git::Repository::GetChangedFiles() noexcept {
 	std::vector<std::string> modifiedFiles;
 
 	git_status_list* status;
-	if (git_repository_is_bare(repo))  // should probably log here.
+	if (IsBare())  // should probably log here.
 		return modifiedFiles;
 
 	if (git_status_list_new(&status, repo, NULL) != 0) return modifiedFiles;

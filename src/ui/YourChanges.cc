@@ -30,7 +30,7 @@ YourChanges::YourChanges(git::Repository& repo, QWidget* parent) {
 	unstaged->setLayout(unstagedLayout);
 
 	// Fetch status
-	auto status = repo.GetModifiedFiles();
+	auto status = repo.GetChangedFiles();
 	for (const std::string& file : status) {
 		auto* label  = new QLabel(this);
 		auto  string = QString::fromStdString(file);
