@@ -5,10 +5,8 @@ class QFile;
 
 class Config {
     public:
-	const QString ConfigFileRelativePath = "config.json";
-	const QString HistoryRelativePath    = "history.json";
-
-	~Config();
+	Config() = default;
+	~Config() noexcept;
 
 	void CreateOrLoadConfigFile() noexcept;
 	void CreateOrLoadHistoryFile() noexcept;
