@@ -42,11 +42,10 @@ void MainWindow::OpenRepository() noexcept {
 	    this, tr("Select Git Repository"), "/home",
 	    QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 
-	auto path = dir.toStdString();
-	if (path.empty()) return;
+	if (dir.isEmpty()) return;
 
 	auto repo = std::make_shared<git::Repository>();
-	if (repo->Open(path.c_str())) {
+	if (repo->Open((char*)dir.toLocal8Bit().data())) {
 		repository = repo;
 		InitializeRepoViewerWidget();
 	} else {
