@@ -7,7 +7,8 @@
 git::Remote::Remote(git_remote* remote) noexcept : remote(remote) {}
 
 git::Remote::~Remote() noexcept {
-	git_remote_free(remote);
+	// TODO: Fix exception thrown here at exit.
+	//git_remote_free(remote);
 }
 
 bool git::Remote::Create(const std::string& name, const std::string& url,
