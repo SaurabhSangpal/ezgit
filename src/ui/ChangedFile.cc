@@ -14,17 +14,22 @@ ChangedFile::ChangedFile(QWidget* parent) noexcept {
 
 	auto* layout = new QHBoxLayout(this);
 	layout->setMargin(0);
-	layout->setSpacing(1);
+	layout->setSpacing(10);
+	layout->setAlignment(Qt::AlignLeft);
 	this->setLayout(layout);
 
-	prefix = new QLabel(this);
-	layout->addWidget(prefix);
-
-	path = new QLabel(this);
-	layout->addWidget(path);
-
+	prefix	 = new QLabel(this);
+	path	 = new QLabel(this);
 	checkBox = new QCheckBox(this);
+
+	auto* spacer = new QSpacerItem(60, 0, QSizePolicy::Expanding);
+
+	layout->addWidget(prefix);
+	layout->addSpacing(10);
+	layout->addWidget(path);
+	layout->addSpacerItem(spacer);
 	layout->addWidget(checkBox);
+	layout->addSpacing(5);
 
 	show();
 }

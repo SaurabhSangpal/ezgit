@@ -1,21 +1,22 @@
 #pragma once
 
-#include <qwidget.h>
+#include <QWidget>
 
 namespace git {
 class Repository;
 }
 
 class QFrame;
-struct git_index;
+class QLabel;
+class QPushButton;
 
 class YourChanges : public QWidget {
 	Q_OBJECT
     public:
 	explicit YourChanges(git::Repository& repo, QWidget* parent = nullptr);
-	~YourChanges() noexcept override;
 
     private:
-	QFrame *staged, *unstaged;
-	git_index* index;
+	QFrame *     staged, *unstaged;
+	QLabel *     stagedLabel, *unstagedLabel;
+	QPushButton *stageButton, *unstageButton;
 };
