@@ -116,6 +116,6 @@ inline std::string GetTime(const git_time* inTime, const char* prefix) {
 
 	char buffer[64] = {0};
 
-	sprintf(buffer, "%s%s %c%02d%02d\n", prefix, out, sign, hours, minutes);
+	sprintf(buffer, "%s%s\n", prefix, out);
 	return buffer;
 }
