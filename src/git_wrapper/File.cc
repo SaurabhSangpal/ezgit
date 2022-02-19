@@ -1,7 +1,7 @@
 #include "File.h"
 
-git::File::File(const std::string& filePath, git_status_t fileStatus)
-    : path(filePath), status(fileStatus) {}
+git::File::File(const std::string& oldPath, const std::string& newPath, git_status_t fileStatus)
+    : oldPath(oldPath), newPath(newPath), status(fileStatus) {}
 
 bool git::File::IsStaged() const {
 	return status == GIT_STATUS_INDEX_MODIFIED || status == GIT_STATUS_INDEX_NEW ||

@@ -1,4 +1,5 @@
 #include "Repository.h"
+#include "File.h"
 
 #include <git2.h>
 
@@ -20,8 +21,8 @@ bool git::Repository::Clone(const char* url, const char* directory) noexcept {
 	return error == 0;
 }
 
-std::vector<std::string> git::Repository::GetChangedFiles() noexcept {
-	std::vector<std::string> modifiedFiles;
+std::vector<git::File> git::Repository::GetChangedFiles() noexcept {
+	std::vector<git::File> modifiedFiles;
 
 	git_status_list* status;
 	if (IsBare())  // should probably log here.
@@ -55,7 +56,8 @@ std::vector<std::string> git::Repository::GetChangedFiles() noexcept {
 		} else {
 			string = std::string(oldPath ? oldPath : newPath);
 		}
-		modifiedFiles.push_back(string);
+		auto file = File(oldPath, newPath, statusEntry->status);
+		modifiedFiles.push_back(file);
 	}
 
 	return modifiedFiles;

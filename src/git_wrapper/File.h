@@ -8,16 +8,16 @@ enum class FileState { None, New, Modified, Deleted, Renamed, Typechange };
 
 class File {
     public:
-	File(const std::string& filePath, git_status_t fileStatus);
+	File(const std::string& oldPath, const std::string& newPath, git_status_t fileStatus);
 
-	const std::string& GetPath() { return path; }
+	const std::string& GetPath() { return oldPath.empty() ? newPath : oldPath; }
 
 	bool IsStaged() const;
 
 	FileState GetFileState() const;
 
     private:
-	std::string  path;
+	std::string  oldPath, newPath;
 	git_status_t status;
 };
 }  // namespace git

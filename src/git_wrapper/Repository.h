@@ -11,6 +11,7 @@
 struct git_repository;
 
 namespace git {
+class File;
 class Repository {
     public:
 	Repository()  = default;
@@ -26,7 +27,7 @@ class Repository {
 	// Gets list of new/modified/renamed/deleted/typechanged files in the status list.
 	// TODO: Differentiate between staged and unstaged files.
 	// TODO: Differentiate between new/modified/deleted/moved, etc files.
-	[[nodiscard]] std::vector<std::string> GetChangedFiles() noexcept;
+	[[nodiscard]] std::vector<File> GetChangedFiles() noexcept;
 
 	// Returns true if the repository is bare.
 	[[nodiscard]] bool IsBare() const noexcept;
@@ -42,7 +43,7 @@ class Repository {
 	// Should this git status entry be processed into a File?
 	static bool ShouldProcess(git_status_t status);
 
-	git_repository*		 repo;
+	git_repository*		 repo = nullptr;
 	std::string		 repoLocation;
 	std::vector<git::Remote> remotes;
 };
