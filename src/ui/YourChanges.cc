@@ -14,8 +14,8 @@
 YourChanges::YourChanges(git::Repository& repo, QWidget* parent) {
 	setParent(parent);
 
-	const int ButtonWidth  = 80;
-	const int ButtonHeight = 30;
+	constexpr int ButtonWidth  = 80;
+	constexpr int ButtonHeight = 30;
 
 	// Top level
 	auto* layout = new QVBoxLayout(this);
