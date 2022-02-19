@@ -5,8 +5,9 @@
 #include <qlabel.h>
 #include <qlayout.h>
 
-#include "../git_wrapper/Repository.h"
 #include "../git_wrapper/File.h"
+#include "../git_wrapper/Repository.h"
+#include "ChangedFile.h"
 
 YourChanges::YourChanges(git::Repository& repo, QWidget* parent) {
 	setParent(parent);
@@ -33,10 +34,15 @@ YourChanges::YourChanges(git::Repository& repo, QWidget* parent) {
 	// Fetch status
 	auto files = repo.GetChangedFiles();
 	for (auto& file : files) {
-		auto* label  = new QLabel(this);
-		auto  string = QString::fromStdString(file.GetPath());
-		label->setText(string);
-		stagedLayout->addWidget(label);
+		auto* changedFile = new ChangedFile(this);
+		changedFile->Setup(file);
+		// auto* label  = new QLabel(this);
+		// auto  string = QString::fromStdString(file.GetPath());
+		// label->setText(string);
+		if (file.IsStaged())
+			stagedLayout->addWidget(changedFile);
+		else
+			unstagedLayout->addWidget(changedFile);
 	}
 }
 

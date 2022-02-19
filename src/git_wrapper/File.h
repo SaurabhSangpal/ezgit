@@ -10,7 +10,7 @@ class File {
     public:
 	File(const std::string& oldPath, const std::string& newPath, git_status_t fileStatus);
 
-	const std::string& GetPath() { return oldPath.empty() ? newPath : oldPath; }
+	const std::string& GetPath() const { return oldPath.empty() ? newPath : oldPath; }
 
 	bool IsStaged() const;
 
