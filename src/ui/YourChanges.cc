@@ -32,6 +32,7 @@ YourChanges::YourChanges(git::Repository& repo, QWidget* parent) {
 
 	stagedLabel = new QLabel(this);
 	stagedLabel->setText("Staged");
+	stagedLabel->setStyleSheet("font-weight: bold");
 	stagedTitleLayout->addWidget(stagedLabel);
 
 	unstageButton = new QPushButton(this);
@@ -54,6 +55,7 @@ YourChanges::YourChanges(git::Repository& repo, QWidget* parent) {
 
 	unstagedLabel = new QLabel(this);
 	unstagedLabel->setText("Unstaged");
+	unstagedLabel->setStyleSheet("font-weight: bold");
 	unstagedTitleLayout->addWidget(unstagedLabel);
 
 	stageButton = new QPushButton(this);
