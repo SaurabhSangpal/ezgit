@@ -37,8 +37,7 @@ ChangedFile::ChangedFile(QWidget* parent) noexcept {
 void ChangedFile::Setup(const git::File& file) noexcept {
 	prefix->setText(QString::fromStdString(GetPrefixByFileState(file.GetFileState())));
 	path->setText(QString::fromStdString(file.GetPath()));
-	checkBox->setCheckState(file.IsStaged() ? Qt::CheckState::Checked
-						: Qt::CheckState::Unchecked);
+	checkBox->setCheckState(Qt::CheckState::Unchecked);
 	checkBox->setText(QString());  // We don't need text in checkBox.
 }
 
