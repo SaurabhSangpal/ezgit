@@ -11,7 +11,7 @@
 #include "Commit.h"
 #include "ui_AllCommits.h"
 
-inline std::string GetTime(const git_time* inTime, const char* prefix);
+std::string GetTime(const git_time* inTime, const char* prefix);
 
 AllCommits::AllCommits(git::Repository& repo, QWidget* parent)
     : QWidget(parent), ui(new Ui::AllCommits), repo(repo) {
@@ -92,22 +92,10 @@ void AllCommits::DisplayAllCommits(const std::vector<git::Commit>& commitsVec) n
 	}
 }
 
-inline std::string GetTime(const git_time* inTime, const char* prefix) {
-	char	   sign, out[32];
+std::string GetTime(const git_time* inTime, const char* prefix) {
+	char	   out[32];
 	struct tm* intm;
-	int	   offset, hours, minutes;
 	time_t	   t;
-
-	offset = inTime->offset;
-	if (offset < 0) {
-		sign   = '-';
-		offset = -offset;
-	} else {
-		sign = '+';
-	}
-
-	hours	= offset / 60;
-	minutes = offset % 60;
 
 	t = (time_t)inTime->time + (inTime->offset * 60);
 
