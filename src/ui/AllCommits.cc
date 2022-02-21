@@ -3,7 +3,6 @@
 #include <git2.h>
 #include <qlabel.h>
 
-#include <future>
 #include <thread>
 
 #include "../git_wrapper/Commit.h"
@@ -28,8 +27,12 @@ AllCommits::AllCommits(git::Repository& repo, QWidget* parent)
 AllCommits::~AllCommits() { delete ui; }
 
 void AllCommits::Fetch() noexcept {
-	auto log = std::async(std::launch::async, &AllCommits::FetchLog, this);
-	DisplayAllCommits(log.get());
+	std::promise<Log> promise;
+	auto		  future = promise.get_future();
+	std::thread	  work(&AllCommits::FetchLogAsync, this, std::move(promise));
+
+	DisplayAllCommits(future.get());
+	work.join();
 }
 
 void AllCommits::AddCommit(const git::Commit& commit) noexcept {
@@ -40,7 +43,7 @@ void AllCommits::AddCommit(const git::Commit& commit) noexcept {
 	commits.push_back(uiCommit);
 }
 
-std::vector<git::Commit> AllCommits::FetchLog() noexcept {
+Log AllCommits::FetchLog() noexcept {
 	int		 parents;
 	git_diff_options diffOptions = GIT_DIFF_OPTIONS_INIT;
 	git_oid		 oid;
@@ -57,7 +60,7 @@ std::vector<git::Commit> AllCommits::FetchLog() noexcept {
 	}
 	git_revwalk_push_head(revwalk);
 
-	std::vector<git::Commit> out;
+	Log out = new std::vector<git::Commit>;
 
 	for (; git_revwalk_next(&oid, revwalk) == 0; git_commit_free(commit)) {
 		if (git_commit_lookup(&commit, repo.GetRepository(), &oid) != 0) {
@@ -77,7 +80,7 @@ std::vector<git::Commit> AllCommits::FetchLog() noexcept {
 
 		git::Commit gc{};
 		gc.Setup(message, author->name, buf, time, body);
-		out.push_back(gc);
+		out->push_back(gc);
 	}
 
 	git_revwalk_free(revwalk);
@@ -86,8 +89,13 @@ std::vector<git::Commit> AllCommits::FetchLog() noexcept {
 	return out;
 }
 
-void AllCommits::DisplayAllCommits(const std::vector<git::Commit>& commitsVec) noexcept {
-	for (auto& i : commitsVec) {
+void AllCommits::FetchLogAsync(std::promise<Log>&& promise) noexcept {
+	Log log = FetchLog();
+	promise.set_value(log);
+}
+
+void AllCommits::DisplayAllCommits(const Log commitsVec) noexcept {
+	for (const auto& i : *commitsVec) {
 		AddCommit(i);
 	}
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QWidget>
+#include <future>
 #include <memory>
 #include <vector>
 
@@ -18,6 +19,7 @@ class Repository;
 class Commit;
 
 typedef std::vector<std::shared_ptr<Commit>> Commits;
+typedef std::vector<git::Commit>*	     Log;
 
 class AllCommits : public QWidget {
 	Q_OBJECT
@@ -29,9 +31,10 @@ class AllCommits : public QWidget {
 	void Fetch() noexcept;
 
     private:
-	std::vector<git::Commit> FetchLog() noexcept;
-	void			 AddCommit(const git::Commit& commit) noexcept;
-	void DisplayAllCommits(const std::vector<git::Commit>& commitsVec) noexcept;
+	Log  FetchLog() noexcept;
+	void FetchLogAsync(std::promise<Log>&& promise) noexcept;
+	void AddCommit(const git::Commit& commit) noexcept;
+	void DisplayAllCommits(const Log commitsVec) noexcept;
 
 	Ui::AllCommits*	 ui;
 	Commits		 commits;
