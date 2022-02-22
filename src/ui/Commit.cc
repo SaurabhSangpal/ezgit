@@ -6,7 +6,7 @@
 
 #include "../git_wrapper/Commit.h"
 
-Commit::Commit(QWidget* parent) {
+Commit::Commit(const git::Commit& c, QWidget* parent) : commit(c) {
 	this->setParent(parent);
 
 	auto* layout = new QVBoxLayout(this);
@@ -42,6 +42,8 @@ Commit::Commit(QWidget* parent) {
 	hLayout->addSpacing(10);
 	hLayout->addWidget(date, 0, Qt::AlignTop);
 	hLayout->addSpacing(5);
+
+	Setup(commit);
 
 	show();
 }

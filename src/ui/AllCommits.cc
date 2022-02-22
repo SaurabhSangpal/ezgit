@@ -36,8 +36,7 @@ void AllCommits::Fetch() noexcept {
 }
 
 void AllCommits::AddCommit(const git::Commit& commit) noexcept {
-	auto uiCommit = std::make_shared<Commit>(ui->commitsScrollAreaContent);
-	uiCommit->Setup(commit);
+	auto uiCommit = std::make_shared<Commit>(commit, ui->commitsScrollAreaContent);
 	ui->commitsScrollAreaContent->layout()->addWidget(uiCommit.get());
 
 	commits.push_back(uiCommit);

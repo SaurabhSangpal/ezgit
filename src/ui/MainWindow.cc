@@ -80,7 +80,7 @@ void MainWindow::CloneRepository() noexcept {
 }
 
 void MainWindow::ShowAbout() noexcept {
-	QMessageBox::about(this, "About", "Created by Saurabh Sangpal\n2021 All Rights Reserved.");
+	QMessageBox::about(this, "About", "Created by Saurabh Sangpal\n2021-2022 All Rights Reserved.");
 }
 
 void MainWindow::InitializeRepoViewerWidget() noexcept {
