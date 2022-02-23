@@ -50,6 +50,6 @@ Commit::Commit(const git::Commit& c, QWidget* parent) : commit(c) {
 void Commit::Setup() {
 	message->setText(commit.GetMessage().c_str());
 	author->setText(commit.GetAuthor().c_str());
-	hash->setText(commit.GetHash().c_str());
+	hash->setText(commit.GetHash().substr(0, 7).c_str());
 	date->setText(commit.GetDate().c_str());
 }
