@@ -43,12 +43,11 @@ Commit::Commit(const git::Commit& c, QWidget* parent) : commit(c) {
 	hLayout->addWidget(date, 0, Qt::AlignTop);
 	hLayout->addSpacing(5);
 
-	Setup(commit);
-
+	Setup();
 	show();
 }
 
-void Commit::Setup(const git::Commit& commit) {
+void Commit::Setup() {
 	message->setText(commit.GetMessage().c_str());
 	author->setText(commit.GetAuthor().c_str());
 	hash->setText(commit.GetHash().c_str());

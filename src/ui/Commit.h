@@ -14,7 +14,7 @@ class Commit : public QWidget {
 
     public:
 	explicit Commit(const git::Commit& c, QWidget* parent = nullptr);
-	void Setup(const git::Commit& commit);
+	void Setup();
 
 	std::string& GetBody() const;
 
