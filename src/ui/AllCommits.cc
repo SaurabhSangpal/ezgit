@@ -73,7 +73,9 @@ Log AllCommits::FetchLog() noexcept {
 		if (body == nullptr || body == NULL) {
 			body = "";
 		}
-		char buf[7 + 1];
+
+		const short HASH_CHARS_DISPLAYED = 7;
+		char buf[HASH_CHARS_DISPLAYED + 1];
 		git_oid_tostr(buf, sizeof(buf), git_commit_id(commit));
 		auto time = GetTime(&author->when, "");
 
