@@ -1,13 +1,24 @@
 #include "Commit.h"
 
+#include <QFont>
 #include <QLabel>
 #include <QLayout>
 #include <QPushButton>
 
 #include "../git_wrapper/Commit.h"
 
+QFont* commitFont;
+
 Commit::Commit(const git::Commit& c, QWidget* parent) : commit(c) {
 	this->setParent(parent);
+
+	if (commitFont == nullptr) {
+		// TODO: Fetch font from config file.
+		// NOTE: We do not free the font as it will be cleaned up when application quits.
+		commitFont = new QFont("Consolas");
+	}
+
+	setFont(*commitFont);
 
 	auto* layout = new QVBoxLayout(this);
 	layout->setMargin(0);
