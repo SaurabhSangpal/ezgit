@@ -40,7 +40,7 @@ Commit::Commit(const git::Commit& c, QWidget* parent) : commit(c) {
 	date	= new QLabel(this);
 
 	author->setFixedWidth(100);
-	hash->setFixedWidth(40);
+	hash->setFixedWidth(45);
 	date->setFixedWidth(170);
 
 	auto* spacer = new QSpacerItem(60, 0, QSizePolicy::Expanding);
