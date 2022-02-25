@@ -94,6 +94,52 @@ void AllCommits::FetchLogAsync(std::promise<Log>&& promise) noexcept {
 	promise.set_value(log);
 }
 
+git_revwalk* AllCommits::InitializeRevWalk() noexcept {
+	git_revwalk* revwalk = nullptr;
+
+	if (git_revwalk_new(&revwalk, repo.GetRepository()) != 0) {
+		return nullptr;
+	}
+	if (git_revwalk_sorting(revwalk, GIT_SORT_TIME) != 0) {
+		return nullptr;
+	}
+	git_revwalk_push_head(revwalk);
+
+	return revwalk;
+}
+
+git_revwalk* AllCommits::FetchLog(git_revwalk* revWalk, int logCount, Log log) noexcept {
+	if (revWalk == nullptr) return nullptr;
+	int count = 0;
+
+	git_oid	    oid;
+	git_commit* commit = nullptr;
+
+	for (; git_revwalk_next(&oid, revWalk) == 0 && count < logCount; git_commit_free(commit)) {
+		if (git_commit_lookup(&commit, repo.GetRepository(), &oid) != 0) {
+			// NOTE: Is this correct? Will we free commit twice?
+			continue;
+		}
+
+		auto* author  = git_commit_author(commit);
+		auto* message = git_commit_message(commit);
+		auto* body    = git_commit_body(commit);
+		if (body == nullptr || body == NULL) {
+			body = "";
+		}
+
+		char buf[GIT_OID_HEXSZ + 1];
+		git_oid_tostr(buf, sizeof(buf), git_commit_id(commit));
+		auto time = GetTime(&author->when, "");
+
+		git::Commit gc{};
+		gc.Setup(message, author->name, buf, time, body);
+		log->push_back(gc);
+	}
+
+	return revWalk;
+}
+
 void AllCommits::DisplayAllCommits(const Log commitsVec) noexcept {
 	for (const auto& i : *commitsVec) {
 		AddCommit(i);
