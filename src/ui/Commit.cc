@@ -52,7 +52,7 @@ Commit::Commit(const git::Commit& c, QWidget* parent) : commit(c) {
 	hLayout->addWidget(hash, 0, Qt::AlignTop);
 	hLayout->addSpacing(10);
 	hLayout->addWidget(date, 0, Qt::AlignTop);
-	hLayout->addSpacing(5);
+	hLayout->addSpacing(1);
 
 	Setup();
 	show();
