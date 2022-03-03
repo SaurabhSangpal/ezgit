@@ -1,24 +1,13 @@
 #include "Commit.h"
 
-#include <QFont>
 #include <QLabel>
 #include <QLayout>
 #include <QPushButton>
 
 #include "../git_wrapper/Commit.h"
 
-QFont* commitFont;
-
 Commit::Commit(const git::Commit& c, QWidget* parent) : commit(c) {
 	this->setParent(parent);
-
-	if (commitFont == nullptr) {
-		// TODO: Fetch font from config file.
-		// NOTE: We do not free the font as it will be cleaned up when application quits.
-		commitFont = new QFont("Consolas");
-	}
-
-	setFont(*commitFont);
 
 	auto* layout = new QVBoxLayout(this);
 	layout->setMargin(0);
@@ -39,13 +28,18 @@ Commit::Commit(const git::Commit& c, QWidget* parent) : commit(c) {
 	hash	= new QLabel(this);
 	date	= new QLabel(this);
 
-	author->setFixedWidth(100);
-	hash->setFixedWidth(45);
+	message->setStyleSheet("font:	9pt 'Consolas'");
+	author->setStyleSheet("font:	9pt 'Consolas'");
+	hash->setStyleSheet("font:	9pt 'Consolas'");
+	date->setStyleSheet("font:	9pt 'Consolas'");
+
+	author->setFixedWidth(120);
+	hash->setFixedWidth(55);
 	date->setFixedWidth(170);
 
 	auto* spacer = new QSpacerItem(60, 0, QSizePolicy::Expanding);
 
-	hLayout->addWidget(message, 0, Qt::AlignTop);
+	hLayout->addWidget(message, 1, Qt::AlignTop);
 	hLayout->addSpacerItem(spacer);
 	hLayout->addWidget(author, 0, Qt::AlignTop);
 	hLayout->addSpacing(10);
