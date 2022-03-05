@@ -1,15 +1,17 @@
 #include "MainWindow.h"
 
 #include <git2.h>
-#include <qaction.h>
-#include <qfiledialog.h>
-#include <qlayout.h>
-#include <qmessagebox.h>
+
+#include <QAction>
+#include <QFileDialog>
+#include <QLayout>
+#include <QMessageBox>
 
 #include "../git_wrapper/Repository.h"
 #include "./ui_MainWindow.h"
 #include "CloneDialog.h"
 #include "RepoViewerWidget.h"
+
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
 	git_libgit2_init();
@@ -80,7 +82,8 @@ void MainWindow::CloneRepository() noexcept {
 }
 
 void MainWindow::ShowAbout() noexcept {
-	QMessageBox::about(this, "About", "Created by Saurabh Sangpal\n2021-2022 All Rights Reserved.");
+	QMessageBox::about(this, "About",
+			   "Created by Saurabh Sangpal\n2021-2022 All Rights Reserved.");
 }
 
 void MainWindow::InitializeRepoViewerWidget() noexcept {
