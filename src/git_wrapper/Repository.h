@@ -1,7 +1,7 @@
 #pragma once
 
 #include <git2/status.h>
-#include <qapplication.h>
+#include <QApplication>
 
 #include <string>
 #include <vector>

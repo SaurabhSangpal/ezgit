@@ -1,7 +1,7 @@
 #include "AllCommits.h"
 
 #include <git2.h>
-#include <qlabel.h>
+#include <QLabel>
 
 #include <thread>
 

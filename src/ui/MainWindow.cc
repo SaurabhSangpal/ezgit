@@ -12,7 +12,6 @@
 #include "CloneDialog.h"
 #include "RepoViewerWidget.h"
 
-
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
 	git_libgit2_init();
 

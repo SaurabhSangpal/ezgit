@@ -1,5 +1,5 @@
 #include <git2.h>
-#include <qapplication.h>
+#include <QApplication>
 
 #include "ui/MainWindow.h"
 

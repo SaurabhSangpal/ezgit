@@ -1,5 +1,5 @@
 #pragma once
-#include <qmainwindow.h>
+#include <QMainWindow>
 
 #include <memory>
 

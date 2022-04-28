@@ -12,6 +12,7 @@ class File {
 
 	const std::string& GetPath() const { return oldPath.empty() ? newPath : oldPath; }
 
+	// Is the file staged for committing?
 	bool IsStaged() const;
 
 	FileState GetFileState() const;
